@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 
-const Formulaire = () => {
+const Formulaire = ({setAuth}) => {
   const [values, setValues] = useState({
     email:"",
     password:""
   })
 
-  const [auth, setAuth] = useState(false);
-
   useEffect(() => {
     if(window.localStorage.getItem('auth')){
       setAuth(true);
     }
-  }, [])
+  }, [setAuth])
 
   const loginWithEmail = (e) => {
     e.preventDefault();
