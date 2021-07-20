@@ -15,7 +15,7 @@ function App() {
           <Formulaire setAuth={setAuth}/>
         :
           <>
-            <NavBar />
+            <NavBar setAuth={setAuth}/>
             <Playlist />
           </>
       }

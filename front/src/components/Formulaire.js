@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 
 const Formulaire = ({setAuth}) => {
   const [values, setValues] = useState({
@@ -14,6 +17,17 @@ const Formulaire = ({setAuth}) => {
 
   const loginWithEmail = (e) => {
     e.preventDefault();
+    const { email, password } = values;
+     firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
+       const user = userCredential.user;
+       user.getIdTokenResult().then((results) => {
+        setAuth(true);
+        window.localStorage.setItem('auth', results.token);
+      }) 
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
 

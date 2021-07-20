@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../db_config');
+const middlewareAuth = require('../firebase/middlewareAuth');
 
 //créer une playlist
 router.post('/', (req, res) => {
@@ -21,7 +22,7 @@ router.post('/', (req, res) => {
 });
 
 //consulter une playlist par son :id
-router.get('/:id', (req, res) => {
+router.get('/:id', middlewareAuth, (req, res) => {
     const { id } = req.params;
     const sql = `SELECT * FROM playlist WHERE id=?`;
     connection.query(sql, [id], (error, results) => {
